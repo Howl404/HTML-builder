@@ -1,14 +1,14 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 fs.promises
-  .readdir(__dirname + "/styles", { withFileTypes: true })
+  .readdir(__dirname + '/styles', { withFileTypes: true })
   .then((data) => {
     let filtered = [];
     data.forEach(function (file) {
-      fileName = file.name;
-      index = fileName.lastIndexOf(".");
-      if (fileName.slice(index + 1, fileName.length) !== "css") {
+      let fileName = file.name;
+      let index = fileName.lastIndexOf('.');
+      if (fileName.slice(index + 1, fileName.length) !== 'css') {
         return;
       } else {
         filtered.push(fileName);
@@ -23,7 +23,7 @@ fs.promises
       (err) => {
         if (err) throw err;
 
-        fs.appendFile(__dirname + "/project-dist/bundle.css", "", (err) => {
+        fs.appendFile(__dirname + '/project-dist/bundle.css', '', (err) => {
           if (err) throw err;
 
           filtered.forEach(function (file) {
@@ -31,9 +31,9 @@ fs.promises
               path.join(__dirname, `styles/${file}`)
             );
 
-            readable.on("data", (data) => {
+            readable.on('data', (data) => {
               fs.appendFile(
-                __dirname + "/project-dist/bundle.css",
+                __dirname + '/project-dist/bundle.css',
                 data,
                 (err) => {
                   if (err) throw err;
